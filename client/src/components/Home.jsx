@@ -1,22 +1,43 @@
-import React from 'react'
-import MAP from '../assets/3d-casual-life-trail-map.png'
-import '../css/Home.css'
+import React from "react";
+import MAP from "../assets/3d-casual-life-trail-map.png";
+import "../css/Home.css";
+import { userContext } from "../App";
+import { useContext } from "react";
 
-const Home = () => {
+function Home() {
+  const user = useContext(userContext);
+
   return (
     <div className="background">
       <div className="container container-grid">
         {/* Col 1 */}
-        <div>
-          <h1>Let AI design <br></br> your road trip!</h1>
+        {user.username ? (
+              <div>
+              <h1>
+                Welcome, <br></br>{user.username}!
+              </h1>
+              <p>
+                Transform your road trips with AI magic.<br></br> Crafted routes.
+                Curated experiences. Crystal-clear adventures.
+              </p>
+              <a href="/dashboard" className="btn-home">
+                Start the magic!
+              </a>
+            </div>
+            ) : (
+              <div>
+          <h1>
+            Let AI design <br></br> your road trip!
+          </h1>
           <p>
-            Transform your road trips with AI magic.<br></br> Crafted routes. Curated
-            experiences. Crystal-clear adventures.
+            Transform your road trips with AI magic.<br></br> Crafted routes.
+            Curated experiences. Crystal-clear adventures.
           </p>
-          <a href="/login" className="btn-home"> 
-            Start the magic!
+          <a href="/signup" className="btn-home">
+            Join us now!
           </a>
         </div>
+            )}
         {/* Col 2 */}
 
         <div className="image-fit up-down">
@@ -33,7 +54,7 @@ const Home = () => {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default Home
+export default Home;

@@ -16,12 +16,12 @@ function Login() {
     .then(res => {
         console.log("login: " + res.data);
         if(res.data === "Login success") {
-                navigate('/dashboard')
+                navigate('/')
                 setTimeout(() => {
                   window.location.reload(); // Force reload
                 }, 100);
             } else {
-                navigate('/login')
+              alert('Your email/password is not correct. Please enter again.')
             }
         
     }).catch(err => console.log(err)) 

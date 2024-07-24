@@ -13,7 +13,7 @@ function Dashboard() {
             if(res.data === "Login success") {
                 setSuc("Welcome")
             } else {
-                navigate('/login')
+                navigate('/')
             }
         })
         .catch(err => console.log(err))
