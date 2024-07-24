@@ -26,6 +26,10 @@ router.get('/dashboard', verifyUser, (req, res) => {
     res.json("Login success")
 })
 
+router.get('/',verifyUser, (req, res) => {
+    return res.json({email: req.email, username: req.username})
+})
+
 router.post('/signup', (req, res) => {
     const {username, email, password} = req.body;
     bcrypt.hash(password, 10)
@@ -43,7 +47,7 @@ router.post('/login', (req, res) => {
         if(user) {
             bcrypt.compare(password, user.password, (err, response) => {
                 if(response) {
-                    const token = jwt.sign({email: user.email},
+                    const token = jwt.sign({email: user.email, username: user.username},
                       "jwt-secret-key", {expiresIn: '1d'})
                     res.cookie('token', token)
                     res.json("Login success")
@@ -56,4 +60,10 @@ router.post('/login', (req, res) => {
         }
     })
 })
+
+router.get('/logout', (req, res) => {
+    res.clearCookie('token');
+    return res.json("Success")
+})
+
 export default router;

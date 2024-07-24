@@ -1,8 +1,27 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useContext } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import '../css/Navbar.css'
+import { userContext } from '../App'
+import axios from 'axios'
 
-const Navbar = () => {
+function Navbar() {
+  const user = useContext(userContext)
+    const navigate = useNavigate()
+
+    console.log("User context:", user);
+  console.log("Username:", user.username);
+
+    const handleLogout = () => {
+        axios.get('http://localhost:3000/logout')
+        .then(res => {
+            if(res.data === "Success")
+            navigate('/login')
+            setTimeout(() => {
+              window.location.reload(); // Force reload
+            }, 100);
+        }).catch(err => console.log(err))
+    }
+
   return (
     <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
       <div class="container">
@@ -12,12 +31,21 @@ const Navbar = () => {
           <li class="nav-item px-3">
               <Link class="nav-link link" to="/">HOME</Link>
             </li>
-          <li class="nav-item px-3">
-              <Link class="nav-link link" to="/signup">SIGNUP</Link>
-            </li>
-            <li class="nav-item px-3">
-              <Link class="link nav-link" to="/login">LOGIN</Link>
-            </li>
+            {user.username ? (
+  <li className="nav-item px-3">
+    <Link className="link nav-link" onClick={handleLogout} to="#">LOGOUT</Link>
+  </li>
+) : (
+  <>
+    <li className="nav-item px-3">
+      <Link className="nav-link link" to="/signup">SIGNUP</Link>
+    </li>
+    <li className="nav-item px-3">
+      <Link className="link nav-link" to="/login">LOGIN</Link>
+    </li>
+  </>
+)}
+          
           </ul>
         </div>
       </div>
@@ -26,3 +54,4 @@ const Navbar = () => {
 }
 
 export default Navbar
+

@@ -17,6 +17,9 @@ function Login() {
         console.log("login: " + res.data);
         if(res.data === "Login success") {
                 navigate('/dashboard')
+                setTimeout(() => {
+                  window.location.reload(); // Force reload
+                }, 100);
             } else {
                 navigate('/login')
             }
