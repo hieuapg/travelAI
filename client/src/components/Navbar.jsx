@@ -9,8 +9,7 @@ function Navbar() {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    axios
-      .get("http://localhost:3000/logout")
+    axios.get("http://localhost:3000/logout")
       .then((res) => {
         if (res.data === "Success") navigate("/");
         setTimeout(() => {
