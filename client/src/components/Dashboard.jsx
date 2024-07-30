@@ -28,6 +28,7 @@ const Dashboard = ({ locationData = {} }) => {
     hobbies: [],
     places: [],
     other: "",
+    stopover: "",
   };
 
   const [formData, setFormData] = useState(initialFormData);
@@ -58,7 +59,7 @@ const Dashboard = ({ locationData = {} }) => {
     setShowLoading(true);
     try {
       const responsePlan = await axios.get(
-        `http://localhost:3000/api/trip-plan/${formData.from}/${formData.to}/${formData.days}/${formData.food.join(',')}/${formData.places.join(',')}/${formData.hobbies.join(',')}/`
+        `http://localhost:3000/api/trip-plan/${formData.from}/${formData.to}/${formData.days}/${formData.food.join(',')}/${formData.places.join(',')}/${formData.hobbies.join(',')}/${formData.stopover}/`
       );
       console.log("API Response:", responsePlan.data);
       navigate("/result", { state: { tripPlan: responsePlan.data } });
@@ -91,6 +92,15 @@ const Dashboard = ({ locationData = {} }) => {
               variant="outlined"
               name="to"
               value={formData.to}
+              onChange={handleInputChange}
+              fullWidth
+              margin="normal"
+            />
+            <TextField
+              label="Stopovers"
+              variant="outlined"
+              name="stopover"
+              value={formData.stopover}
               onChange={handleInputChange}
               fullWidth
               margin="normal"
